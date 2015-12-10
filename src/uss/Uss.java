@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,7 +30,7 @@ public class Uss extends Application {
 	private Direction direction = Direction.RIGHT;
 	private boolean moved = false;
 	private boolean running = false;
-
+	int punktid;
 	private Timeline timeline = new Timeline();
 
 	private ObservableList<Node> snake;
@@ -39,12 +38,13 @@ public class Uss extends Application {
 	private Parent createContent() {
 		Pane root = new Pane();
 		root.setPrefSize(APP_W, APP_H);
-
+		root.setStyle("-fx-background-color: black;");
 		Group snakeBody = new Group();
 		snake = snakeBody.getChildren();
+		
 
 		Circle food= new Circle(BLOCK_SIZE, BLOCK_SIZE, 5);
-		food.setFill(Color.BLUE);
+		food.setFill(Color.RED);
 		food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 		food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 
@@ -99,8 +99,11 @@ public class Uss extends Application {
 			if (tail.getTranslateX() == food.getTranslateX() && tail.getTranslateY() == food.getTranslateY()) {
 				food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 				food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
+	
+				punktid = punktid + 10;
+				System.out.println(punktid);
 
-				Circle rect = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5);
+				Circle rect = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5, Color.WHITE);
 				rect.setTranslateX(tailX);
 				rect.setTranslateY(tailY);
 				
@@ -117,6 +120,7 @@ public class Uss extends Application {
 	}
 
 	private void restartGame() {
+		punktid = 0;
 		stopGame();
 		startGame();
 	}
@@ -129,7 +133,7 @@ public class Uss extends Application {
 
 	private void startGame() {
 		direction = Direction.RIGHT;
-		Circle head = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5);
+		Circle head = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5, Color.WHITE);
 		snake.add(head);
 		timeline.play();
 		running = true;
@@ -192,7 +196,5 @@ public class Uss extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-		
-  
-	}
+		}
 }
