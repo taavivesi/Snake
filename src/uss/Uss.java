@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,7 @@ public class Uss extends Application {
 	private boolean moved = false;
 	private boolean running = false;
 	int punktid;
+	Label label = new Label();
 	private Timeline timeline = new Timeline();
 
 	private ObservableList<Node> snake;
@@ -41,7 +43,9 @@ public class Uss extends Application {
 		root.setStyle("-fx-background-color: black;");
 		Group snakeBody = new Group();
 		snake = snakeBody.getChildren();
-		
+		label.setText("Punktid " + punktid);
+		label.setTextFill(Color.WHITE);
+		label.setTranslateX(390);
 
 		Circle food= new Circle(BLOCK_SIZE, BLOCK_SIZE, 5);
 		food.setFill(Color.RED);
@@ -101,8 +105,9 @@ public class Uss extends Application {
 				food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 	
 				punktid = punktid + 10;
-				System.out.println(punktid);
-
+				label.setText("Punktid " + punktid);
+				label.setTextFill(Color.WHITE);
+				label.setTranslateX(390);
 				Circle rect = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5, Color.WHITE);
 				rect.setTranslateX(tailX);
 				rect.setTranslateY(tailY);
@@ -115,7 +120,7 @@ public class Uss extends Application {
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
-		root.getChildren().addAll(food, snakeBody);
+		root.getChildren().addAll(food, snakeBody, label);
 		return root;
 	}
 
