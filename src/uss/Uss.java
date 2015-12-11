@@ -25,30 +25,31 @@ public class Uss extends Application {
 	}
 
 	public static final int BLOCK_SIZE = 15;
-	public static final int APP_W = 30 * BLOCK_SIZE;
-	public static final int APP_H = 15 * BLOCK_SIZE;
+	public static final int APP_W = 50 * BLOCK_SIZE;
+	public static final int APP_H = 30 * BLOCK_SIZE;
 
 	private Direction direction = Direction.RIGHT;
 	private boolean moved = false;
 	private boolean running = false;
 	int punktid;
 	Label label = new Label();
+	Label label2 = new Label();
 	private Timeline timeline = new Timeline();
 
 	private ObservableList<Node> snake;
 
 	private Parent createContent() {
-		Pane root = new Pane();
-		root.setPrefSize(APP_W, APP_H);
-		root.setStyle("-fx-background-color: black;");
+		Pane window = new Pane();
+		window.setPrefSize(APP_W, APP_H);
+		window.setStyle("-fx-background-color: black;");
 		Group snakeBody = new Group();
 		snake = snakeBody.getChildren();
 		label.setText("Punktid " + punktid);
 		label.setTextFill(Color.WHITE);
-		label.setTranslateX(390);
+		label.setTranslateX(APP_W / 1.1);
 
 		Circle food= new Circle(BLOCK_SIZE, BLOCK_SIZE, 5);
-		food.setFill(Color.RED);
+		food.setFill(Color.rgb(100,200,100));
 		food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 		food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE)) / BLOCK_SIZE * BLOCK_SIZE);
 
@@ -89,13 +90,23 @@ public class Uss extends Application {
 			for (Node rect : snake) {
 				if (rect != tail && tail.getTranslateX() == rect.getTranslateX()
 						&& tail.getTranslateY() == rect.getTranslateY()) {
-					restartGame();
+					stopGame();
+					label2.setTextFill(Color.WHITE);
+					label2.setText("GAME OVER !");
+					label2.setTranslateX(APP_W /2.5);
+					label2.setTranslateY(APP_H/4);
+					label2.setVisible(true);
 					break;
 				}
 
 				if (tail.getTranslateX() < 0 || tail.getTranslateX() >= APP_W || tail.getTranslateY() < 0
 						|| tail.getTranslateY() >= APP_H) {
-					restartGame();
+					stopGame();
+					label2.setTextFill(Color.WHITE);
+					label2.setText("GAME OVER ! ");
+					label2.setTranslateX(APP_W /2.25);
+					label2.setTranslateY(APP_H/4);
+					label2.setVisible(true);
 					break;
 				}
 			}
@@ -107,12 +118,12 @@ public class Uss extends Application {
 				punktid = punktid + 10;
 				label.setText("Punktid " + punktid);
 				label.setTextFill(Color.WHITE);
-				label.setTranslateX(390);
-				Circle rect = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5, Color.WHITE);
-				rect.setTranslateX(tailX);
-				rect.setTranslateY(tailY);
+				label.setTranslateX(APP_W / 1.2);
+				Circle circ = new Circle(BLOCK_SIZE, BLOCK_SIZE, 5, Color.WHITE);
+				circ.setTranslateX(tailX);
+				circ.setTranslateY(tailY);
 				
-				snake.add(rect);
+				snake.add(circ);
 
 			}
 		});
@@ -120,20 +131,22 @@ public class Uss extends Application {
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
-		root.getChildren().addAll(food, snakeBody, label);
-		return root;
+		window.getChildren().addAll(food, snakeBody, label, label2);
+		return window;
 	}
 
 	private void restartGame() {
 		punktid = 0;
-		stopGame();
+		snake.clear();
+		label2.setVisible(false);
+		label2.isVisible();
 		startGame();
 	}
 
+	
 	private void stopGame() {
 		running = false;
 		timeline.stop();
-		snake.clear();
 	}
 
 	private void startGame() {
@@ -146,6 +159,7 @@ public class Uss extends Application {
 	
 
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Scene scene = new Scene(createContent());
@@ -170,9 +184,13 @@ public class Uss extends Application {
 					if (direction != Direction.LEFT)
 						direction = Direction.RIGHT;
 					break;
+				case SPACE:
+					restartGame();
+					break;
 				}
 			
 		});
+		
 		
 		Pane sp = new Pane();
 		Image img =new Image("http://i.imgur.com/EroGfFb.jpg?1");
