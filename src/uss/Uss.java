@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -40,21 +41,25 @@ public class Uss extends Application {
 	boolean boonus = (punktid != 0);
 	Rectangle bonus = new Rectangle(9, 9);
 	int bonusFood;
-	double dif = 0.1;
+	double dif =0.1;
 	int Rfood;
 
 	private ObservableList<Node> snake;
 
 	private Parent createContent() {
+		BorderPane bp = new BorderPane();
+		Pane side = new Pane(controls);
+		side.setStyle("-fx-background-color: darkblue;");
 		Pane window = new Pane();
 		window.setPrefSize(APP_W, APP_H);
 		window.setStyle("-fx-background-color: black;");
+		bp.setCenter(window);
+		bp.setLeft(side);
 		Group snakeBody = new Group();
 		snake = snakeBody.getChildren();
 		points.setText("Punktid: " + punktid);
 		points.setTextFill(Color.WHITE);
 		points.setTranslateX(APP_W / 1.1);
-
 		controls.setTextFill(Color.WHITE);
 
 		Circle food = new Circle(BLOCK_SIZE / 2, BLOCK_SIZE / 2, 5);
@@ -142,6 +147,7 @@ public class Uss extends Application {
 					snake.addAll(circ2, circ3);
 					bonusFood = 0;
 					Rfood = 1;
+					food.setVisible(true);
 				}
 			}
 			if (Rfood == 1) {
@@ -149,7 +155,6 @@ public class Uss extends Application {
 					food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 					food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 
-					food.setVisible(true);
 					punktid = punktid + 10;
 					points.setText("Punktid: " + punktid);
 					points.setTextFill(Color.WHITE);
@@ -180,8 +185,8 @@ public class Uss extends Application {
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
-		window.getChildren().addAll(bonus, food, snakeBody, points, over, controls);
-		return window;
+		window.getChildren().addAll(bonus, food, snakeBody, points, over);
+		return bp;
 	}
 
 	private static final String CONTROLLS = "CONTROLLS :\n" + "W - UP\n" + "S - DOWN\n" + "A - LEFT\n" + "D - RIGHT\n"
