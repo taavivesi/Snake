@@ -44,14 +44,9 @@ public class Uss extends Application {
 
 	Label points = new Label();
 	Label over = new Label();
-	Label controls = new Label(CONTROLLS);
+	Label controls = new Label(CONTROLS);
 
 	Rectangle bonus = new Rectangle(9, 9);
-
-	String yellow = "-fx-background-color: lightyellow;";
-	String black = "-fx-background-color: black;";
-	String green = "-fx-background-color: green;";
-	String color;
 
 	// Loon vaadeldava listi.
 	private ObservableList<Node> snake;
@@ -63,11 +58,11 @@ public class Uss extends Application {
 		BorderPane bp = new BorderPane();
 
 		Pane side = new Pane(controls);
-		side.setStyle("-fx-background-color: darkblue;");
+		side.getStyleClass().add("pane");
 
 		Pane window = new Pane();
 		window.setPrefSize(APP_W, APP_H);
-		window.setStyle(black);
+		window.getStyleClass().add("board");
 
 		bp.setCenter(window);
 		bp.setLeft(side);
@@ -82,16 +77,13 @@ public class Uss extends Application {
 		controls.setTextFill(Color.WHITE);
 
 		Line rLine = new Line(APP_W, 0, APP_W, APP_H);
-		rLine.setStroke(Color.CHARTREUSE);
+		rLine.getStyleClass().add("line");
 		rLine.setStrokeWidth(5);
-		Line lLine = new Line(0, 0, 0, APP_H);
-		lLine.setStroke(Color.CHARTREUSE);
-		lLine.setStrokeWidth(5);
 		Line tLine = new Line(0, 0, APP_W, 0);
-		tLine.setStroke(Color.CHARTREUSE);
+		tLine.getStyleClass().add("line");
 		tLine.setStrokeWidth(5);
 		Line bLine = new Line(0, APP_H, APP_W, APP_H);
-		bLine.setStroke(Color.CHARTREUSE);
+		bLine.getStyleClass().add("line");
 		bLine.setStrokeWidth(5);
 
 		// Tekib toit.
@@ -218,7 +210,7 @@ public class Uss extends Application {
 						bonusFood = 1;
 						bonus.setVisible(true);
 						bonus.setDisable(false);
-						bonus.setFill(Color.RED);
+						bonus.getStyleClass().add("bonus");
 						bonus.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 						bonus.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 						food.setVisible(false);
@@ -233,12 +225,12 @@ public class Uss extends Application {
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
-		window.getChildren().addAll(bonus, food, snakeBody, points, over, rLine, lLine, tLine, bLine);
+		window.getChildren().addAll(bonus, food, snakeBody, points, over, rLine, tLine, bLine);
 		return bp;
 	}
 
 	// Juhised
-	private static final String CONTROLLS = "CONTROLLS :\n" + "W - UP\n" + "S - DOWN\n" + "A - LEFT\n" + "D - RIGHT\n"
+	private static final String CONTROLS = "CONTROLS :\n" + "W - UP\n" + "S - DOWN\n" + "A - LEFT\n" + "D - RIGHT\n"
 			+ "SPACE - RESTART GAME\n" + "ESC - EXIT GAME";
 
 	// Mängu taaskäivitamine
@@ -274,6 +266,7 @@ public class Uss extends Application {
 
 		// Mängu aken
 		Scene scene = new Scene(content());
+		scene.getStylesheets().add("Design.css");
 
 		// Defineerin ära nupud
 		scene.setOnKeyPressed(event -> {
@@ -307,30 +300,31 @@ public class Uss extends Application {
 
 		// Menüü aken
 		Pane p = new Pane();
-		Image img = new Image("http://i.imgur.com/EroGfFb.jpg?1");
+		Image img = new Image("snakeLogo.jpg");
 		ImageView imgView = new ImageView(img);
 
-		Button button1 = new Button("START");
-		button1.setOnAction(e -> {
+		Button start = new Button("START");
+		start.setOnAction(e -> {
 			primaryStage.setScene(scene);
 			startGame();
 		});
 
-		Button button2 = new Button("EXIT");
-		button2.setOnAction(e -> System.exit(0));
+		Button exit = new Button("EXIT");
+		exit.setOnAction(e -> System.exit(0));
 
-		p.getChildren().addAll(imgView, button1, button2);
+		p.getChildren().addAll(imgView, start, exit);
+		p.setStyle("-fx-background-color: black;");
 		Scene scene1 = new Scene(p, 500, 275);
+		scene1.getStylesheets().add("Design.css");
 
-		imgView.setLayoutX(100);
-		button2.setLayoutX(325);
-		button2.setLayoutY(200);
-		button1.setLayoutX(150);
-		button1.setLayoutY(200);
+		imgView.setLayoutX(50);
+		exit.setLayoutX(325);
+		exit.setLayoutY(200);
+		start.setLayoutX(105);
+		start.setLayoutY(200);
 		primaryStage.setTitle("Uss");
 		primaryStage.setScene(scene1);
-		primaryStage.getIcons().add(
-				new Image("http://icons.iconarchive.com/icons/icons8/windows-8/128/Astrology-Year-Of-Snake-icon.png"));
+		primaryStage.getIcons().add(new Image("snakeIcon.png"));
 		primaryStage.show();
 
 	}
