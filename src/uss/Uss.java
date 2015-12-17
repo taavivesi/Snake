@@ -84,10 +84,10 @@ public class Uss extends Application {
 		Line rLine = new Line(APP_W, 0, APP_W, APP_H);
 		rLine.setStroke(Color.CHARTREUSE);
 		rLine.setStrokeWidth(5);
-		Line lLine = new Line(1, 1, 1, APP_H);
+		Line lLine = new Line(0, 0, 0, APP_H);
 		lLine.setStroke(Color.CHARTREUSE);
 		lLine.setStrokeWidth(5);
-		Line tLine = new Line(1, 1, APP_W, 1);
+		Line tLine = new Line(0, 0, APP_W, 0);
 		tLine.setStroke(Color.CHARTREUSE);
 		tLine.setStrokeWidth(5);
 		Line bLine = new Line(0, APP_H, APP_W, APP_H);
@@ -329,6 +329,8 @@ public class Uss extends Application {
 		button1.setLayoutY(200);
 		primaryStage.setTitle("Uss");
 		primaryStage.setScene(scene1);
+		primaryStage.getIcons().add(
+				new Image("http://icons.iconarchive.com/icons/icons8/windows-8/128/Astrology-Year-Of-Snake-icon.png"));
 		primaryStage.show();
 
 	}
