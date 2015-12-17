@@ -70,7 +70,7 @@ public class Uss extends Application {
 		Group snakeBody = new Group();
 		snake = snakeBody.getChildren();
 
-		points.setText("Punktid: " + punktid);
+		points.setText("Points: " + punktid);
 		points.setTextFill(Color.WHITE);
 		points.setTranslateX(APP_W / 1.15);
 		points.setTranslateY(2);
@@ -170,7 +170,7 @@ public class Uss extends Application {
 				if (bonusFood == 1) {
 
 					punktid = punktid + 50;
-					points.setText("Punktid: " + punktid);
+					points.setText("Points: " + punktid);
 					points.setTextFill(Color.WHITE);
 					points.setTranslateX(APP_W / 1.15);
 
@@ -196,7 +196,7 @@ public class Uss extends Application {
 					food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 
 					punktid = punktid + 10;
-					points.setText("Punktid: " + punktid);
+					points.setText("Points: " + punktid);
 					points.setTextFill(Color.WHITE);
 					points.setTranslateX(APP_W / 1.15);
 					points.setTranslateY(2);
@@ -236,7 +236,7 @@ public class Uss extends Application {
 	// Mängu taaskäivitamine
 	private void restartGame() {
 		punktid = 0;
-		points.setText("Punktid: " + punktid);
+		points.setText("Points: " + punktid);
 		points.setTextFill(Color.WHITE);
 		points.setTranslateX(APP_W / 1.15);
 		snake.clear();
@@ -314,6 +314,7 @@ public class Uss extends Application {
 
 		p.getChildren().addAll(imgView, start, exit);
 		p.setStyle("-fx-background-color: black;");
+		
 		Scene scene1 = new Scene(p, 500, 275);
 		scene1.getStylesheets().add("Design.css");
 
@@ -322,7 +323,7 @@ public class Uss extends Application {
 		exit.setLayoutY(200);
 		start.setLayoutX(105);
 		start.setLayoutY(200);
-		primaryStage.setTitle("Uss");
+		primaryStage.setTitle("Snake");
 		primaryStage.setScene(scene1);
 		primaryStage.getIcons().add(new Image("snakeIcon.png"));
 		primaryStage.show();
