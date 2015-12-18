@@ -28,7 +28,7 @@ public class Uss extends Application {
 		UP, DOWN, LEFT, RIGHT
 	}
 
-	// Määran suuruse kastidena.
+	// Mï¿½ï¿½ran suuruse kastidena.
 	public static final int BLOCK_SIZE = 15;
 	public static final int APP_W = 40 * BLOCK_SIZE;
 	public static final int APP_H = 30 * BLOCK_SIZE;
@@ -98,13 +98,13 @@ public class Uss extends Application {
 			if (!running)
 				return;
 
-			// Kui ussi pikkus on 1 liigub ise edasi, kui 2 või enam võtab
-			// viimase tüki ja tõstab ette.
+			// Kui ussi pikkus on 1 liigub ise edasi, kui 2 vï¿½i enam vï¿½tab
+			// viimase tï¿½ki ja tï¿½stab ette.
 			boolean toRemove = snake.size() > 1;
 
 			Node tail = toRemove ? snake.remove(snake.size() - 1) : snake.get(0);
 
-			// Jätan meelde ussi kordinaadid
+			// Jï¿½tan meelde ussi kordinaadid
 			double tailX = tail.getTranslateX();
 			double tailY = tail.getTranslateY();
 
@@ -130,7 +130,7 @@ public class Uss extends Application {
 
 			moved = true;
 
-			// Lisame tagasi äravõetud tüki
+			// Lisame tagasi ï¿½ravï¿½etud tï¿½ki
 			if (toRemove)
 				snake.add(0, tail);
 
@@ -147,7 +147,7 @@ public class Uss extends Application {
 					break;
 				}
 
-				// Kui uss läheb vastu seina
+				// Kui uss lï¿½heb vastu seina
 				if (tail.getTranslateX() < 0 || tail.getTranslateX() == APP_W || tail.getTranslateY() < 0
 						|| tail.getTranslateY() == APP_H) {
 					stopGame();
@@ -160,7 +160,7 @@ public class Uss extends Application {
 				}
 			}
 
-			// Kui uss läheb vastu boonus toitu
+			// Kui uss lï¿½heb vastu boonus toitu
 			if (tail.getTranslateX() == bonus.getTranslateX() && tail.getTranslateY() == bonus.getTranslateY()) {
 				bonus.setVisible(false);
 				bonus.isVisible();
@@ -190,7 +190,7 @@ public class Uss extends Application {
 			}
 			if (Rfood == 1) {
 
-				// Kui uss läheb vastu tavalist toitu
+				// Kui uss lï¿½heb vastu tavalist toitu
 				if (tail.getTranslateX() == food.getTranslateX() && tail.getTranslateY() == food.getTranslateY()) {
 					food.setTranslateX((int) (Math.random() * (APP_W - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
 					food.setTranslateY((int) (Math.random() * (APP_H - BLOCK_SIZE) / BLOCK_SIZE) * BLOCK_SIZE);
@@ -221,7 +221,7 @@ public class Uss extends Application {
 			}
 		});
 
-		// Keyframe käib lõpmatult
+		// Keyframe kï¿½ib lï¿½pmatult
 		timeline.getKeyFrames().add(frame);
 		timeline.setCycleCount(Timeline.INDEFINITE);
 
@@ -233,7 +233,7 @@ public class Uss extends Application {
 	private static final String CONTROLS = "CONTROLS :\n" + "W - UP\n" + "S - DOWN\n" + "A - LEFT\n" + "D - RIGHT\n"
 			+ "SPACE - RESTART GAME\n" + "ESC - EXIT GAME";
 
-	// Mängu taaskäivitamine
+	// Mï¿½ngu taaskï¿½ivitamine
 	private void restartGame() {
 		punktid = 0;
 		points.setText("Points: " + punktid);
@@ -245,13 +245,13 @@ public class Uss extends Application {
 		startGame();
 	}
 
-	// Mängu seisma jätmine
+	// Mï¿½ngu seisma jï¿½tmine
 	private void stopGame() {
 		running = false;
 		timeline.stop();
 	}
 
-	// Mängu alustamine
+	// Mï¿½ngu alustamine
 	private void startGame() {
 		direction = Direction.RIGHT;
 		Circle head = new Circle(BLOCK_SIZE / 2, BLOCK_SIZE / 2, 5, Color.WHITE);
@@ -264,11 +264,11 @@ public class Uss extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		// Mängu aken
+		// Mï¿½ngu aken
 		Scene scene = new Scene(content());
 		scene.getStylesheets().add("Design.css");
 
-		// Defineerin ära nupud
+		// Defineerin ï¿½ra nupud
 		scene.setOnKeyPressed(event -> {
 			if (!moved)
 				return;
@@ -298,9 +298,9 @@ public class Uss extends Application {
 			}
 		});
 
-		// Menüü aken
+		// Menï¿½ï¿½ aken
 		Pane p = new Pane();
-		Image img = new Image("snakeLogo.jpg");
+		Image img = new Image("SnakeLogo.jpg");
 		ImageView imgView = new ImageView(img);
 
 		Button start = new Button("START");
@@ -325,7 +325,7 @@ public class Uss extends Application {
 		start.setLayoutY(200);
 		primaryStage.setTitle("Snake");
 		primaryStage.setScene(scene1);
-		primaryStage.getIcons().add(new Image("snakeIcon.png"));
+		primaryStage.getIcons().add(new Image("SnakeIcon.png"));
 		primaryStage.show();
 
 	}
